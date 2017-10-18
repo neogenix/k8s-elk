@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: es-ingest
+  labels:
+    application: logging
+    component: elasticsearch
+    role: ingest
+spec:
+  ports:
+  - port: 9200
+    name: http
+  selector:
+    component: elasticsearch
+    role: ingest
