@@ -40,3 +40,5 @@ The things I still intend to add to the repo:
 - Better handling of security between pods (kibana and logstash shouldn't be able to talk to data-nodes for example)
 - Better examples for handling firewall rules in GKE 
 - Better examples for handling scale up, and scale down
+- Better HTTP(s) ?
+- Better handling of security (external vs. internal, firewall rules)

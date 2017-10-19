@@ -63,6 +63,8 @@ spec:
           value: "false"
         - name: NODE_DATA
           value: "true"
+        - name: XPACK_SECURITY_ENABLED
+          value: "false"
         - name: ES_JAVA_OPTS
           value: "-Xms1g -Xmx1g"
         ports:

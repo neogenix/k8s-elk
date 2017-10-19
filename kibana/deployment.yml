@@ -35,6 +35,8 @@ spec:
           value: "kibana.test.com"
         - name: ELASTICSEARCH_URL
           value: "http://es-ingest:9200"
+        - name: XPACK_MONITORING_ENABLED
+          value: "false"
         ports:
         - containerPort: 5601
           name: http
