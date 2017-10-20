@@ -57,12 +57,6 @@ spec:
               fieldPath: metadata.name
         - name: MASTER_DISCOVERY_HOST
           value: "es-master"
-        - name: NODE_MASTER
-          value: "false"
-        - name: NODE_INGEST
-          value: "false"
-        - name: NODE_DATA
-          value: "true"
         - name: XPACK_SECURITY_ENABLED
           value: "false"
         - name: ES_JAVA_OPTS
@@ -90,7 +84,7 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: es-config
+          name: es-data
       restartPolicy: Always
   volumeClaimTemplates:
   - metadata:

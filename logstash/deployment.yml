@@ -1,0 +1,67 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: logstash
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        application: logging
+        component: logstash
+    spec:
+      initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "-c", "chown -R 1000:1000 /usr/share/logstash/config"]
+        securityContext:
+          privileged: true
+        volumeMounts:
+            #- name: config
+            #  mountPath: /usr/share/logstash/config/logstash.yml
+            #  subPath: logstash.yml
+        - name: config-pipeline
+          mountPath: /usr/share/logstash/config/conf.d
+      containers:
+      - name: logstash
+        imagePullPolicy: IfNotPresent
+        image: docker.elastic.co/logstash/logstash:5.6.3
+        resources:
+          requests:
+            memory: 2Gi
+            cpu: 1
+          limits:
+            memory: 2Gi
+            cpu: 1
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        ports:
+        - containerPort: 514
+          name: syslog-tcp
+          protocol: TCP
+        - containerPort: 514
+          name: syslog-udp
+          protocol: UDP
+        volumeMounts:
+            #- name: config
+            #  mountPath: /usr/share/logstash/config/logstash.yml
+            #  subPath: logstash.yml
+        - name: config-pipeline
+          mountPath: /usr/share/logstash/config/conf.d
+      volumes:
+          #- name: config
+          #  configMap:
+          #    name: logstash-config
+      - name: config-pipeline
+        configMap:
+          name: logstash-config-pipeline
+      restartPolicy: Always
