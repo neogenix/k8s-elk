@@ -112,3 +112,9 @@ data:
     # The default locale. This locale can be used in certain circumstances to substitute any missing
     # translations.
     #i18n.defaultLocale: "en"
+
+    xpack.security.enabled: false
+    xpack.monitoring.enabled: false
+    xpack.graph.enabled: false
+    xpack.watcher.enabled: false
+    xpack.reporting.enabled: false

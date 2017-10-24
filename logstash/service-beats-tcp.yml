@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: logstash-beats-tcp
+  labels:
+    application: logging
+    component: logstash
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5044
+    targetPort: 5044
+    protocol: TCP
+    name: logstash-beats-tcp
+  selector:
+    component: logstash

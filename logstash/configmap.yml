@@ -7,6 +7,53 @@ metadata:
     application: logging
     component: logstash
 data:
+  input-syslog.yml: |
+    input {
+      tcp {
+        port => 514
+        type => syslog
+      }
+      udp {
+        port => 514
+        type => syslog
+      }
+    }
+
+    filter {
+      if [type] == "syslog" {
+        grok {
+          match => { "message" => "%{SYSLOGTIMESTAMP:syslog_timestamp} %{SYSLOGHOST:syslog_hostname} %{DATA:syslog_program}(?:\[%{POSINT:syslog_pid}\])?: %{GREEDYDATA:syslog_message}" }
+          add_field => [ "received_at", "%{@timestamp}" ]
+          add_field => [ "received_from", "%{host}" ]
+        }
+        date {
+          match => [ "syslog_timestamp", "MMM  d HH:mm:ss", "MMM dd HH:mm:ss" ]
+        }
+      }
+    }
+
+    output {
+      elasticsearch {
+        hosts => [ "es-ingest:9200" ]
+      }
+    }
+
+  input-beats.yml: |
+    input {
+      beats {
+        port => 5044
+      }
+    }
+
+    output {
+      elasticsearch {
+        hosts => "es-ingest:9200"
+        manage_template => false
+        index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
+        document_type => "%{[@metadata][type]}"
+      }
+    }
+
   logstash.yml: |
     # Settings file in YAML
     #
