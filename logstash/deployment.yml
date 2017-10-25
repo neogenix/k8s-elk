@@ -11,19 +11,9 @@ spec:
         application: logging
         component: logstash
     spec:
-      initContainers:
-      - name: volume-mount-hack
-        image: busybox
-        imagePullPolicy: IfNotPresent
-        command: ["sh", "-c", "chown -R 1000:1000 /usr/share/logstash/config"]
-        securityContext:
-          privileged: true
-        volumeMounts:
-            #- name: config
-            #  mountPath: /usr/share/logstash/config/logstash.yml
-            #  subPath: logstash.yml
-        - name: config-pipeline
-          mountPath: /usr/share/logstash/config/conf.d
+      securityContext:
+        runAsUser: 0
+        fsGroup: 0
       containers:
       - name: logstash
         imagePullPolicy: IfNotPresent
@@ -52,15 +42,15 @@ spec:
           name: syslog-udp
           protocol: UDP
         volumeMounts:
-            #- name: config
-            #  mountPath: /usr/share/logstash/config/logstash.yml
-            #  subPath: logstash.yml
+        - name: config
+          mountPath: /usr/share/logstash/config/logstash.yml
+          subPath: logstash.yml
         - name: config-pipeline
           mountPath: /usr/share/logstash/config/conf.d
       volumes:
-          #- name: config
-          #  configMap:
-          #    name: logstash-config
+      - name: config
+        configMap:
+          name: logstash-config
       - name: config-pipeline
         configMap:
           name: logstash-config-pipeline
