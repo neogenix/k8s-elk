@@ -25,20 +25,17 @@ To use these, simply pull the repo down, make a cluster in GKE, and run the foll
 
 `kubectl create -f configmap-production.yml,es-master,es-ingest,es-data,service-es.yml,kibana,service-kibana.yml`
 
-To delete what you've created, run the following: 
+To delete what you've created, run the following:
 
 `kubectl delete configmap,service,statefulset,deployment,pvc,hpa -l application=logging`
 
-The things I still intend to add to the repo: 
-- Configure LogStash
+The things I still intend to add to the repo:
 - Configure Curator
-- More generic configMap usage to improve the general usage of the configs with different sized clusters
-- Disable the x-pack monitoring through an environment variable 
+- Disable the x-pack monitoring through an environment variable
 - Better distribution configurations to make sure we don't have too many eggs in one basket
 - Better handling of deletes for the statefulSets
-- Better sizing guidelines
 - Better handling of security between pods (kibana and logstash shouldn't be able to talk to data-nodes for example)
-- Better examples for handling firewall rules in GKE 
+- Better examples for handling firewall rules in GKE
 - Better examples for handling scale up, and scale down
 - Better HTTP(s) ?
 - Better handling of security (external vs. internal, firewall rules)

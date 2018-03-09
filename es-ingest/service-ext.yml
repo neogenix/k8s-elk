@@ -1,8 +1,8 @@
----
 apiVersion: v1
 kind: Service
 metadata:
   name: es-external
+  namespace: default
   labels:
     application: logging
     component: elasticsearch

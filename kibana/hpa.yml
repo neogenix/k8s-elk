@@ -2,6 +2,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: kibana
+  namespace: default
   labels:
     application: logging
     component: kibana
@@ -10,6 +11,6 @@ spec:
     apiVersion: apps/v1beta1
     kind: Deployment
     name: kibana
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 10
   targetCPUUtilizationPercentage: 50

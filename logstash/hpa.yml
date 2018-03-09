@@ -2,6 +2,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: logstash
+  namespace: default
   labels:
     application: logging
     component: logstash

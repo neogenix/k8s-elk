@@ -1,11 +1,17 @@
----
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: es-data
+  namespace: default
+  labels:
+    application: logging
+    component: elasticsearch
+    role: data
 spec:
   serviceName: es-data
-  replicas: 3
+  selector:
+    matchLabels:
+      role: data
   template:
     metadata:
       labels:
@@ -38,7 +44,7 @@ spec:
             add:
               - IPC_LOCK
               - SYS_RESOURCE
-        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.3
+        image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
         resources:
           requests:
             memory: 2Gi
@@ -47,18 +53,12 @@ spec:
             memory: 2Gi
             cpu: 1
         env:
-        - name: NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
         - name: NODE_NAME
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
         - name: MASTER_DISCOVERY_HOST
           value: "es-master"
-        - name: XPACK_SECURITY_ENABLED
-          value: "false"
         - name: ES_JAVA_OPTS
           value: "-Xms1g -Xmx1g"
         ports:
