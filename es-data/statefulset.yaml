@@ -60,7 +60,7 @@ spec:
         - name: MASTER_DISCOVERY_HOST
           value: "es-master"
         - name: ES_JAVA_OPTS
-          value: "-Xms1g -Xmx1g"
+          value: "-Xms4g -Xmx4g"
         ports:
         - containerPort: 9300
           name: transport

@@ -21,3 +21,5 @@ data:
     node.master: false
     node.ingest: true
     node.data: false
+
+    bootstrap.mlockall: true
