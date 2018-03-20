@@ -47,11 +47,11 @@ spec:
         image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
         resources:
           requests:
-            memory: 2Gi
-            cpu: 1
+            memory: 4Gi
+            cpu: 2
           limits:
-            memory: 2Gi
-            cpu: 1
+            memory: 4Gi
+            cpu: 2
         env:
         - name: NODE_NAME
           valueFrom:
@@ -95,4 +95,4 @@ spec:
       accessModes: ["ReadWriteOnce"]
       resources:
         requests:
-          storage: 10Gi
+          storage: 1024Gi
