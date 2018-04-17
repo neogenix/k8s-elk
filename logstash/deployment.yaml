@@ -32,7 +32,7 @@ spec:
       containers:
       - name: logstash
         imagePullPolicy: IfNotPresent
-        image: docker.elastic.co/logstash/logstash-oss:6.2.2
+        image: docker.elastic.co/logstash/logstash-oss:6.2.3
         resources:
           requests:
             memory: 2Gi

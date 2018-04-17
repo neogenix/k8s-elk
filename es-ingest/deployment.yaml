@@ -35,13 +35,13 @@ spec:
             add:
               - IPC_LOCK
               - SYS_RESOURCE
-        image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
+        image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.3
         resources:
           requests:
             memory: 8Gi
             cpu: 2
           limits:
-            memory: 8Gi
+            memory: 10Gi
             cpu: 2
         env:
         - name: NODE_NAME
@@ -51,7 +51,7 @@ spec:
         - name: MASTER_DISCOVERY_HOST
           value: "es-master"
         - name: ES_JAVA_OPTS
-          value: "-Xms4g -Xmx4g"
+          value: "-Xms8g -Xmx8g"
         ports:
         - containerPort: 9200
           name: http

@@ -46,10 +46,10 @@ spec:
             add:
               - IPC_LOCK
               - SYS_RESOURCE
-        image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
+        image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.3
         resources:
           requests:
-            memory: 4Gi
+            memory: 2Gi
             cpu: 1
           limits:
             memory: 4Gi
