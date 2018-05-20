@@ -12,16 +12,16 @@ data:
     logging.verbose: false
     #logging.silent: false
     #logging.quiet: false
-    #
+
     #pid.file: /var/run/kibana.pid
     #ops.interval: 5000
     #i18n.defaultLocale: "en"
-    #
+
     server.port: 5601
     server.host: "0.0.0.0"
     #server.name: "your-hostname"
-    #
-    #elasticsearch.url: "http://localhost:9200"
+
+    elasticsearch.url: "http://es-ingest:9200"
     #elasticsearch.preserveHost: true
     #elasticsearch.username: "user"
     #elasticsearch.password: "pass"
@@ -35,10 +35,14 @@ data:
     #elasticsearch.customHeaders: {}
     #elasticsearch.shardTimeout: 0
     #elasticsearch.startupTimeout: 5000
-    #
-    #kibana.index: ".kibana"
-    #kibana.defaultAppId: "discover"
-    #
+
+    kibana.index: ".kibana"
+    kibana.defaultAppId: "discover"
+
     #server.ssl.enabled: false
     #server.ssl.certificate: /path/to/your/server.crt
     #server.ssl.key: /path/to/your/server.key
+
+    xpack.security.enabled: false
+    #xpack.security.encryptionKey: "something_at_least_32_characters"
+    #xpack.security.sessionTimeout: 600000

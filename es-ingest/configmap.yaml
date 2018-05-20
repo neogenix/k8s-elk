@@ -22,4 +22,6 @@ data:
     node.ingest: true
     node.data: false
 
-    bootstrap.mlockall: true
+    #bootstrap.memory_lock: true
+
+    xpack.security.enabled: false

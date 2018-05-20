@@ -20,13 +20,13 @@ spec:
       containers:
       - name: kibana
         imagePullPolicy: IfNotPresent
-        image: docker.elastic.co/kibana/kibana-oss:6.2.3
+        image: docker.elastic.co/kibana/kibana:6.2.3
         resources:
           requests:
             memory: 2Gi
             cpu: 1
           limits:
-            memory: 2Gi
+            memory: 4Gi
             cpu: 1
         env:
         - name: NODE_NAME
