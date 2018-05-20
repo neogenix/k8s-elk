@@ -1,0 +1,35 @@
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: curator
+  labels:
+    application: logging
+    component: elasticsearch
+    role: curator
+spec:
+  schedule: "0 1 * * *"
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            application: logging
+            component: elasticsearch
+            role: ingest
+        spec:
+          containers:
+          - image: bobrik/curator:latest
+            name: curator
+            args: ["--config", "/etc/config/config.yml", "/etc/config/action_file.yml"]
+            volumeMounts:
+            - name: config
+              mountPath: /etc/config
+          volumes:
+          - name: config
+            configMap:
+              name: curator
+          restartPolicy: OnFailure

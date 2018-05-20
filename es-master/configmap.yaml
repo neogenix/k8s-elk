@@ -6,6 +6,7 @@ metadata:
   labels:
     application: logging
     component: elasticsearch
+    role: master
 data:
   elasticsearch.yml: |
     cluster.name: es-cluster
